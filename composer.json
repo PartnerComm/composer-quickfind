@@ -1,0 +1,22 @@
+{
+  "name": "pcomm/quickfind",
+  "version": "master",
+  "description": "PComm Quick Find Plugin",
+  "dist": {
+    "type": "git",
+    "url": "https://partnercomm.beanstalkapp.com/composer-quickfind"
+  },
+  "authors": [
+    {
+      "name": "Partnercomm.net",
+      "email": "code@partnercomm.net"
+    }
+  ],
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "PComm\\Contacts\\": "src"
+    }
+  }
+}
