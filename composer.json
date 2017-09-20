@@ -13,10 +13,5 @@
       "email": "code@partnercomm.net"
     }
   ],
-  "require": {},
-  "autoload": {
-    "psr-4": {
-      "PComm\\QuickFind\\": "src/"
-    }
-  }
+  "require": {}
 }
