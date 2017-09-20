@@ -2,7 +2,7 @@
 
 /*
  * class PCQF_Views
- * 
+ *
  * Templates and views for the PComm QuickFind Plugin.
 */
 
@@ -191,7 +191,7 @@ class PCQF_Views
     $important .= '<h3>' . $data['title'] . '</h3>';
     $important .= $data['formatted_content'];
     $important .= '</div></article></div>';
-    
+
     return $important;
   }
 
@@ -207,10 +207,10 @@ class PCQF_Views
     }
 
     $contact = new PCommContacts();
-    
+
     $resource .= $contact->output_phone_numbers($data['custom_content']['pc_phone_number']);
     $resource .= $contact->output_urls($data['custom_content']['pc_url'], $data['title']);
-   
+
     $mailing_address = $data['custom_content']['pc_mailing_address'];
     if (!empty($mailing_address)) {
       $resource .= $contact->output_mailing_address($mailing_address);
@@ -235,7 +235,8 @@ class PCQF_Views
 
   public static function render_text($data)
   {
-    $text = '<div class="text_container qf_view">';
+    $text = '<div id="'. $data['post_name'] .'" class="text_container qf_view qf_view_'.
+      $data['post_name'] . '">';
     $text .= '<article class="text">';
     $text .= '<h2>' . $data['title'] . '</h2>';
     $text .= $data['formatted_content'];
@@ -289,7 +290,7 @@ class PCQF_Views
 
     // determine number of columns and create string for class name
     $col_count = 'wizard_col_' . count($col_content);
-    
+
 
     // create container for highlighed chart
     $highlighted_chart = '<div class="wizard_highlighted_chart post_type">';
@@ -327,7 +328,7 @@ class PCQF_Views
       }
 
       $highlighted_chart .= '</div></div>';
-      
+
     }
 
     $highlighted_chart .= '</div><div style="clear:both;"></div>';
@@ -350,7 +351,7 @@ class PCQF_Views
 
     if($col_count == 3) {
       $col_width = 'width="33%"';
-    } 
+    }
     elseif($col_count == 2) {
       $col_width = 'width="50%"';
     }
@@ -440,7 +441,7 @@ class PCQF_Views
     foreach($col_control as $k => $v) {
       if(empty($k)) {
         unset($col_control[$k]);
-      } 
+      }
     }
 
     //debug($col_control);
@@ -458,7 +459,7 @@ class PCQF_Views
     }
     elseif($col_count == 3) {
       $col_width = 'width="33%"';
-    } 
+    }
     elseif($col_count == 2) {
       $col_width = 'width="50%"';
     }
@@ -526,13 +527,13 @@ class PCQF_Views
           //debug($content);
           $chart .= '<tr class="' . $group_layout . '"><th class="text_head">' . $content[$key]['title'] . '</th>';
           $chart .= '<td colspan="' . $col_count . '">' . $content[$key]['formatted_content'] . '</td></tr>';
-          
+
           break;
 
         case "comparison-subhead":
           //debug($content);
           $chart .= '<tr class="' . $group_layout . '"><th colspan="' . $col_count . '" class="text_head comp_subhead">' . $content[$key]['title'] . '</th>';
-          
+
           break;
 
         default:
@@ -575,7 +576,7 @@ class PCQF_Views
           break;
       }
 
-      
+
     }
 
     // close tbody and table
@@ -651,7 +652,7 @@ class PCQF_Views
 
     return $prem_table;
   }
-  
+
 
 }
 
