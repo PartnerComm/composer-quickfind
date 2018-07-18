@@ -4,8 +4,8 @@
  * Plugin Name: PComm QuickFind
  * Plugin URI: http://www.partnercomm.net
  * Description: Complete QuickFind plugin including all taxonomies, synonym manager, and sort order/layout control.
- * Version: 1.0.1
- * Author: Chad Cole
+ * Version: 0.9.0
+ * Author: PartnerComm
  * Author URI: http://www.partnercomm.net
 */
 

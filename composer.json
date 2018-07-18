@@ -1,12 +1,8 @@
 {
   "name": "pcomm/quickfind",
-  "version": "master",
+  "version": "0.9.0",
   "description": "PComm Quick Find Plugin",
   "type": "wordpress-plugin",
-  "dist": {
-    "type": "git",
-    "url": "https://partnercomm.git.beanstalkapp.com/composer-quickfind"
-  },
   "authors": [
     {
       "name": "Partnercomm.net",
