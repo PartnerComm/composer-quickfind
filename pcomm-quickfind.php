@@ -4,7 +4,7 @@
  * Plugin Name: PComm QuickFind
  * Plugin URI: http://www.partnercomm.net
  * Description: Complete QuickFind plugin including all taxonomies, synonym manager, and sort order/layout control.
- * Version: 0.9.0
+ * Version: 1.0.0
  * Author: PartnerComm
  * Author URI: http://www.partnercomm.net
 */
@@ -450,12 +450,32 @@ class PCommQuickFind
     return self::$qf_model->pcqf_make_qf_posts($api_query->posts, $keyword);
   }
 
+  // get the order id for posts
+  public function get_qf_order_data(array $post_ids, $term_id) {
+    global $wpdb;
+
+    $ids_str = implode(',', $post_ids);
+
+    $table = $wpdb->prefix . 'pcomm_quickfind_order_layout';
+
+    $order_layout = $wpdb->get_results(
+        "
+    SELECT *
+    FROM $table
+    WHERE post_id IN ($ids_str)
+    AND term_id = $term_id
+    ORDER BY sort_order, group_order
+    "
+    );
+
+    return $order_layout;
+  }
+
 } // end class definition
 
 /**
  * Create instance of controller
  */
-new PCommQuickFind();
+$pcQF = new PCommQuickFind();
 
 /* EOF */
-?>
