@@ -4,7 +4,7 @@
  * Plugin Name: PComm QuickFind
  * Plugin URI: http://www.partnercomm.net
  * Description: Complete QuickFind plugin including all taxonomies, synonym manager, and sort order/layout control.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: PartnerComm
  * Author URI: http://www.partnercomm.net
 */
@@ -28,6 +28,7 @@ include_once('includes/PCQF_RetirementType.php');
 include_once('includes/PCQF_OtherBenefitsType.php');
 include_once('includes/PCQF_QFToutType.php');
 include_once('includes/PCQF_EventsType.php');
+include_once('includes/PCQF_LifeEventsType.php');
 include_once('includes/PCQF_TipType.php');
 include_once('includes/PCQF_Admin.php');
 
@@ -125,7 +126,10 @@ class PCommQuickFind
      * Set taxonomies for Retirement content type and initialize
      */
     $retirement_tax = array('group_head', 'group_row', 'quickfind_view', 'keyword', 'location', 'salary_band', 'coverage', 'payment_schedule', 'life_event_cat');
-    $retirement_type = new PCQF_RetirementType($retirement_tax);
+	$retirement_type = new PCQF_RetirementType($retirement_tax);
+	
+	$life_event_tax = array('quickfind_view', 'keyword', 'location', 'salary_band', 'coverage', 'payment_schedule', 'life_event_cat');
+    $life_event_type = new PCQF_LifeEventsType($life_event_tax);
 
     /**
      * Set taxonomies for Other Benefits content type and initialize
@@ -297,8 +301,9 @@ class PCommQuickFind
             'dental-vision-type', 
             'accounts-type', 
             'retirement-type', 
-            'wellness-type', 
+            'wellness-type',
             'other-type',
+            'life-event-type',
             'income-type',
             'contact'
 		];
