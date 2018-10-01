@@ -611,7 +611,8 @@ class PCQF_Admin
         'dental-vision-type', 
         'accounts-type', 
         'retirement-type', 
-        'wellness-type', 
+		'wellness-type', 
+		'life-event-type',
         'other-type',
         'income-type',
         'contact'
@@ -736,7 +737,8 @@ class PCQF_Admin
         'dental-vision-type', 
         'accounts-type', 
         'retirement-type', 
-        'wellness-type', 
+		'wellness-type', 
+		'life-event-type',
         'other-type',
         'income-type',
         'contact'
