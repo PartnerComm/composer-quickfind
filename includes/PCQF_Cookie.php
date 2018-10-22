@@ -57,8 +57,8 @@ class PCQF_Cookie
   };*/
 
   public static function get_cookie() {
-    if (isset( $_COOKIE['rocheqf_user_preferences'] ) ) {
-      return $_COOKIE['rocheqf_user_preferences'];
+    if (isset( $_COOKIE['qf_user_preferences'] ) ) {
+      return $_COOKIE['qf_user_preferences'];
     }
     else {
       return;

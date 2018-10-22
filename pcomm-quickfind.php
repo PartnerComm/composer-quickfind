@@ -4,8 +4,8 @@
  * Plugin Name: PComm QuickFind
  * Plugin URI: http://www.partnercomm.net
  * Description: Complete QuickFind plugin including all taxonomies, synonym manager, and sort order/layout control.
- * Version: 1.0.1
- * Author: Chad Cole
+ * Version: 1.0.4
+ * Author: PartnerComm
  * Author URI: http://www.partnercomm.net
 */
 
@@ -28,6 +28,7 @@ include_once('includes/PCQF_RetirementType.php');
 include_once('includes/PCQF_OtherBenefitsType.php');
 include_once('includes/PCQF_QFToutType.php');
 include_once('includes/PCQF_EventsType.php');
+include_once('includes/PCQF_LifeEventsType.php');
 include_once('includes/PCQF_TipType.php');
 include_once('includes/PCQF_Admin.php');
 
@@ -125,7 +126,10 @@ class PCommQuickFind
      * Set taxonomies for Retirement content type and initialize
      */
     $retirement_tax = array('group_head', 'group_row', 'quickfind_view', 'keyword', 'location', 'salary_band', 'coverage', 'payment_schedule', 'life_event_cat');
-    $retirement_type = new PCQF_RetirementType($retirement_tax);
+	$retirement_type = new PCQF_RetirementType($retirement_tax);
+	
+	$life_event_tax = array('quickfind_view', 'keyword', 'location', 'salary_band', 'coverage', 'payment_schedule', 'life_event_cat');
+    $life_event_type = new PCQF_LifeEventsType($life_event_tax);
 
     /**
      * Set taxonomies for Other Benefits content type and initialize
@@ -288,72 +292,78 @@ class PCommQuickFind
 
   public function pcqf_category_add_qftouts($query)
   {
-    // get user preferences from cookie
-    $cookie = PCQF_Cookie::get_cookie();
-    // parse cookie into $user_preferences array
-    parse_str($cookie, $user_preferences);
 
     if($query->is_tax('keyword') && $query->is_main_query()) {
-        $query->set('posts_per_page', -1);
-        $query->set('post_type', array(
-            'medical-type', 
+        $query->set('posts_per_page', 1000);
+		
+		$post_types = [
+			'medical-type', 
             'dental-vision-type', 
             'accounts-type', 
             'retirement-type', 
-            'wellness-type', 
+            'wellness-type',
             'other-type',
+            'life-event-type',
             'income-type',
             'contact'
-        ));
+		];
 
-        //debug($query);
+		if (defined('PCQF_CLIENT_POST_TYPES') ) {
+			$client_post_types = PCQF_CLIENT_POST_TYPES;
 
-      // create tax query arrays
-      if ( !empty($user_preferences['location']) ) {
-        $location_tax_query = array(
-            'taxonomy' => 'location',
-            'field' => 'slug',
-            'terms' => array('all-locations', $user_preferences['location'])
-        );
-      }
+			$post_types = array_merge($post_types, $client_post_types);
+		}
 
-      if ( !empty($user_preferences['salary_band']) ) {
-        $salary_band_tax_query = array(
-            'taxonomy' => 'salary_band',
-            'field' => 'slug',
-            'terms' => array('all-salary-bands', $user_preferences['salary_band'])
-        );
-      }
+		$query->set('post_type', $post_types);
+		
+		// get user preferences from cookie
+		$cookie = PCQF_Cookie::get_cookie();
+		// parse cookie into $user_preferences array
+		parse_str($cookie, $user_preferences);
 
-      if ( !empty($user_preferences['payment_schedule']) ) {
-        $payment_schedule_tax_query = array(
-            'taxonomy' => 'payment_schedule',
-            'field' => 'slug',
-            'terms' => array('all-payment-schedules', $user_preferences['payment_schedule'])
-        );
-      }
+		if (!defined('PCQF_USER_PREFERENCES_OFF') ) {
+			
+			// create tax query arrays
+			if ( !empty($user_preferences['location']) ) {
+				$location_tax_query = array(
+					'taxonomy' => 'location',
+					'field' => 'slug',
+					'terms' => array('all-locations', $user_preferences['location'])
+				);
+			}
 
-        // this would work if we wanted to show all by default
-        // it gets slightly more complex as we add more taxonomies to this query
-        // if ( !empty( $_COOKIE['user_location'] ) ) {
-          $tax_query = array(
-              $location_tax_query,
-              $salary_band_tax_query,
-              $payment_schedule_tax_query
-          );
+			if ( !empty($user_preferences['salary_band']) ) {
+				$salary_band_tax_query = array(
+					'taxonomy' => 'salary_band',
+					'field' => 'slug',
+					'terms' => array('all-salary-bands', $user_preferences['salary_band'])
+				);
+			}
 
-          $query->set( 'tax_query', $tax_query );
-        // }
+			if ( !empty($user_preferences['payment_schedule']) ) {
+				$payment_schedule_tax_query = array(
+					'taxonomy' => 'payment_schedule',
+					'field' => 'slug',
+					'terms' => array('all-payment-schedules', $user_preferences['payment_schedule'])
+				);
+			}
 
+			// this would work if we wanted to show all by default
+			// it gets slightly more complex as we add more taxonomies to this query
+			// if ( !empty( $_COOKIE['user_location'] ) ) {
+			$tax_query = array(
+				$location_tax_query,
+				$salary_band_tax_query,
+				$payment_schedule_tax_query
+			);
 
-      // debug($query);
-
+			$query->set( 'tax_query', $tax_query );
+		}
         
     }
     elseif ($query->is_home() && $query->is_main_query()) {
-        $query->set( 'posts_per_page', '-1' );
+        $query->set( 'posts_per_page', '1000' );
         $query->set( 'post_type', array('qf_tout'));
-        $query->set( 'tag', 'home');
         $query->set( 'orderby', 'menu_order');
         $query->set( 'order', 'ASC');
     }
@@ -363,29 +373,24 @@ class PCommQuickFind
     }
 
     elseif($query->is_category() && $query->is_main_query()) {
-        $query->set( 'posts_per_page', -1 );
+        $query->set( 'posts_per_page', 1000 );
         $query->set( 'post_type', array('qf_tout', 'post'));
         $query->set( 'orderby', 'menu_order');
         $query->set( 'order', 'ASC');
 
-        $tax_query = array(
-            // 'relation' => 'AND',
-            // array(
-            //     'taxonomy' => 'keyword',
-            //     'field'    => 'slug',
-            //     'terms'    => array($query->query_vars['keyword'])
-            // ),
-            array(
-                'taxonomy' => 'location',
-                'field'    => 'slug',
-                'terms'    => array('all-locations', $_COOKIE['user_location'])
-            )
-        );
+        if ( !defined('PCQF_USER_PREFERENCES_OFF') ) {
 
-        $query->set( 'tax_query', $tax_query );
+			$tax_query = array(
+				array(
+					'taxonomy' => 'location',
+					'field'    => 'slug',
+					'terms'    => array('all-locations', $_COOKIE['user_location'])
+				)
+			);
 
-        // debug($query);
+			$query->set( 'tax_query', $tax_query );
 
+		}
     }
 
 
@@ -450,12 +455,32 @@ class PCommQuickFind
     return self::$qf_model->pcqf_make_qf_posts($api_query->posts, $keyword);
   }
 
+  // get the order id for posts
+  public function get_qf_order_data(array $post_ids, $term_id) {
+    global $wpdb;
+
+    $ids_str = implode(',', $post_ids);
+
+    $table = $wpdb->prefix . 'pcomm_quickfind_order_layout';
+
+    $order_layout = $wpdb->get_results(
+        "
+    SELECT *
+    FROM $table
+    WHERE post_id IN ($ids_str)
+    AND term_id = $term_id
+    ORDER BY sort_order, group_order
+    "
+    );
+
+    return $order_layout;
+  }
+
 } // end class definition
 
 /**
  * Create instance of controller
  */
-new PCommQuickFind();
+$pcQF = new PCommQuickFind();
 
 /* EOF */
-?>
