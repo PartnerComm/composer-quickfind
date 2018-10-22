@@ -78,7 +78,6 @@ class PCQF_Admin
     ?>
     
       <div class="wrap">
-        <?php screen_icon();?>
         <h2>PComm QuickFind Dashboard</h2>
         
         
@@ -93,7 +92,6 @@ class PCQF_Admin
     ?>
     
       <div class="wrap">
-        <?php screen_icon();?>
         <h2>Quick Find Keyword Manager</h2>
         <form action="options.php" method="post">
           <?php //settings_fields('pcqf_options');?>
@@ -116,7 +114,6 @@ class PCQF_Admin
     ?>
     
       <div class="wrap">
-        <?php screen_icon();?>
         <h2>Quick Find Keyword &amp; Taxonomy Manager</h2>
         <form action="options.php" method="post">
           <?php //settings_fields('pcqf_options');?>
@@ -139,7 +136,6 @@ class PCQF_Admin
     ?>
     
       <div class="wrap">
-        <?php screen_icon();?>
         <h2>Quick Find Group Manager</h2>
         <form action="options.php" method="post">
           <?php //settings_fields('pcqf_options');?>
