@@ -14,6 +14,7 @@ The plugin also supports a config option for adding post types to the main QF qu
 # Release Notes
 - 1.0.6 (2018-10-22)
     - Bug Fix: resolve invalid foreach loops
+    - Add docs-type CPT
 - 1.0.5 (2018-10-22)
     - Resolve undefined index bug
     - Remove depreciated function screen_icon
