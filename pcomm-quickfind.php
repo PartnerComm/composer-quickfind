@@ -27,6 +27,7 @@ include_once('includes/PCQF_WellnessType.php');
 include_once('includes/PCQF_RetirementType.php');
 include_once('includes/PCQF_OtherBenefitsType.php');
 include_once('includes/PCQF_QFToutType.php');
+include_once('includes/PCQF_DocsType.php');
 include_once('includes/PCQF_EventsType.php');
 include_once('includes/PCQF_LifeEventsType.php');
 include_once('includes/PCQF_TipType.php');
@@ -136,6 +137,12 @@ class PCommQuickFind
          */
         $other_tax = array('group_head', 'group_row', 'quickfind_view', 'keyword', 'location', 'salary_band', 'coverage', 'payment_schedule', 'life_event_cat');
         $other_type = new PCQF_OtherBenefitsType($other_tax);
+
+        /**
+         * Set taxonomies for Other Benefits content type and initialize
+         */
+        $docs_tax = array('group_head', 'group_row', 'quickfind_view', 'keyword', 'location', 'salary_band', 'coverage', 'payment_schedule', 'life_event_cat');
+        $docs_type = new PCQF_DocsType($docs_tax);
 
         /**
          * Set taxonomies for QF Tout content type and initialize
@@ -306,7 +313,8 @@ class PCommQuickFind
                 'other-type',
                 'life-event-type',
                 'income-type',
-                'contact'
+                'contact',
+                'docs-type',
             ];
 
             if (defined('PCQF_CLIENT_POST_TYPES')) {
@@ -422,7 +430,8 @@ class PCommQuickFind
                 'wellness-type',
                 'other-type',
                 'income-type',
-                'contact'
+                'contact',
+                'docs-type',
             ),
             // set up taxonomy query
             'tax_query' => array(
