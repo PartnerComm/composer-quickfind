@@ -611,7 +611,8 @@ class PCQF_Admin
 		'life-event-type',
         'other-type',
         'income-type',
-        'contact'
+        'contact',
+        'docs-type',
       ),
       // limit to selected keyword taxonomy
       'tax_query' => array(
@@ -737,7 +738,8 @@ class PCQF_Admin
 		'life-event-type',
         'other-type',
         'income-type',
-        'contact'
+        'contact',
+        'docs-type',
       ),
       // limit to selected keyword taxonomy
       'tax_query' => array(

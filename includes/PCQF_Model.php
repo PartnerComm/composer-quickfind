@@ -74,13 +74,14 @@ class PCQF_Model
       // set post type
       'post_type' => array(
         'medical-type', 
-        'dental-vision-type', 
-        'accounts-type', 
+        'dental-vision-type',
+        'accounts-type',
         'retirement-type', 
         'wellness-type', 
         'other-type',
         'income-type',
-        'contact'
+        'contact',
+        'docs-type',
       ),
       // set up taxonomy query
       'tax_query' => array(

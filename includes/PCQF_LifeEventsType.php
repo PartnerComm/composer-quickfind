@@ -78,6 +78,7 @@ class PCQF_LifeEventsType
       $taxonomy = 'keyword';
       $post_type = get_post_type($post_id);
       $terms = get_the_terms($post_id, $taxonomy);
+        if (!$terms || is_wp_error( $terms )) break;
       foreach($terms as $term) {
           echo "<a href='edit.php?post_type={$post_type}&{$taxonomy}={$term->slug}'> " .esc_html(sanitize_term_field('name', $term->name, $term->term_id, $taxonomy, 'edit')) . "</a>";
       }

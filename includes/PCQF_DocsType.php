@@ -1,14 +1,14 @@
 <?php
 
-// ***************** CLASS PCQF_WellnessType *****************
+// ***************** CLASS PCQF_DocsType *****************
 // ************************************************************
 /*
  * Description:
- * Creates the Wellness content type
+ * Creates the QF Docs content type
 */
 // ************************************************************
 
-class PCQF_WellnessType
+class PCQF_DocsType
 {
 
   // ***************** CLASS PROPERTIES ***********************
@@ -24,32 +24,32 @@ class PCQF_WellnessType
     }
 
     add_action('init', array(&$this, 'init_content_type'));
-    add_filter('manage_wellness-type_posts_columns', array(&$this, 'set_custom_wellness_columns'));
-    add_filter('manage_wellness-type_posts_custom_column', array(&$this, 'wellness_custom_columns'), 2, 2 );
+    add_filter('manage_docs-type_posts_columns', array(&$this, 'set_custom_columns'));
+    add_filter('manage_docs-type_posts_custom_column', array(&$this, 'custom_columns'), 2, 2 );
     
   }
 
   // ***************** CLASS METHODS *************************
   public function init_content_type()
   {
-    register_post_type( 'wellness-type',
+    register_post_type( 'docs-type',
     array(
           'labels' => array(
-          'name' => _x('Wellness Type', 'post type general name'),
-          'singular_name' => _x('Wellness Type', 'post type singular name'),
-          'add_new' => _x('Add New', 'wellness-type'),
-          'add_new_item' => __('Add New Wellness Type'),
-          'edit_item' => __('Edit Wellness Type'),
-          'new_item' => __('New Wellness Type'),
-          'all_items' => __('All Wellness Types'),
-          'view_item' => __('View Wellness Type'),
-          'search_items' => __('Search Wellness Types'),
-          'not_found' =>  __('No Wellness Types found'),
-          'not_found_in_trash' => __('No Wellness Types found in Trash'), 
+          'name' => _x('Docs Type', 'post type general name'),
+          'singular_name' => _x('Docs Type', 'post type singular name'),
+          'add_new' => _x('Add New', 'docs-type'),
+          'add_new_item' => __('Add New Docs Type'),
+          'edit_item' => __('Edit Docs Type'),
+          'new_item' => __('New Docs Type'),
+          'all_items' => __('All Docs Types'),
+          'view_item' => __('View Docs Type'),
+          'search_items' => __('Search Docs Types'),
+          'not_found' =>  __('No Docs Types found'),
+          'not_found_in_trash' => __('No Docs Types found in Trash'),
           'parent_item_colon' => '',
-          'menu_name' => 'Wellness'
+          'menu_name' => 'QF Docs'
         ),
-      'menu_icon' => 'dashicons-carrot',
+      'menu_icon' => 'dashicons-format-aside',
       'public' => true,
       'has_archive' => true,
       'supports' => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'custom-fields', 'revisions', 'page-attributes'),
@@ -60,7 +60,7 @@ class PCQF_WellnessType
 
   // ***************** ADMIN METHODS ************************
   // moves id column to before the date column on the post type's admin screen
-  public function set_custom_wellness_columns($columns) {
+  public function set_custom_columns($columns) {
     $new = array();
     foreach($columns as $key => $title) {
     if ($key=='date')  { // Put the column before the date
@@ -75,7 +75,7 @@ class PCQF_WellnessType
   }
 
   // adds the id on the post type's admin screen
-  public function wellness_custom_columns( $column, $post_id ) {
+  public function custom_columns( $column, $post_id ) {
     switch ($column) {
     case 'keyword':
       $taxonomy = 'keyword';
