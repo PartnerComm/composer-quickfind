@@ -184,6 +184,13 @@ class PCommQuickFind
         add_action('admin_enqueue_scripts', 'PCQF_Admin::pcqf_admin_enqueue_styles', 12);
         add_action('admin_enqueue_scripts', 'PCQF_Admin::pcqf_admin_enqueue_scripts');
 
+        add_action( 'admin_menu', function () use($searchModel) {
+            add_submenu_page( 'pcomm-quick-find', "Index Manager", "Index Manager", 'manage_options', "index-manager", function() use($searchModel) {
+              wp_localize_script('indexmanager', 'indexmanager', array('ajaxurl' => admin_url('admin-ajax.php')));
+              include(realpath(__DIR__).'/src/Admin/IndexManager.php');
+            });
+        }, 50);
+
         /**
          * Admin AJAX methods
          */
@@ -198,7 +205,7 @@ class PCommQuickFind
         add_action('wp_ajax_pcqf_get_update_form', 'PCQF_Admin::pcqf_get_update_form');
         add_action('wp_ajax_pcqf_update_keyword_settings', 'PCQF_Admin::pcqf_update_keyword_settings');
     }
-
+    
     /*******************************************************************************
      ** METHODS **
      *******************************************************************************/
