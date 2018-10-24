@@ -770,7 +770,10 @@ class PCQF_Admin
         // Get all post ids from query and push to array
         foreach ($keyword_query->posts as $pid) {
             array_push($pids, $pid->ID);
-            $ptitles[$pid->ID]['post_title'] = $pid->post_title;
+            $post_title = $pid->post_title;
+            $post_title = str_replace('<!--', '&lt;!--', $post_title);
+            $post_title = str_replace('-->', '--&gt;', $post_title);
+            $ptitles[$pid->ID]['post_title'] = $post_title;
         }
 
         // Get all posts with matching IDs from order_layout table
@@ -923,7 +926,7 @@ class PCQF_Admin
         $table .= '<input type="hidden" name="term_id" value="' . $current_group->term_id . '" />';
         $table .= '<input type="hidden" name="term_name" value="' . $current_group->term_name . '" />';
         $table .= '<input type="hidden" name="term_slug" value="' . $current_group->term_slug . '" />';
-        $table .= '<input type="hidden" name="post_title" value="' . $current_post->post_title . '" />';
+        $table .= '<input type="hidden" name="post_title" value="' . $post_title . '" />';
         $table .= '<input type="hidden" name="action" value="pcqf_update_group_post_settings" />';
 
         // closing table/form in row
@@ -990,6 +993,9 @@ class PCQF_Admin
 
         if ($post_update != 0) {
             $post_title = get_post_field('post_title', $_POST['post_id']);
+            $post_title = str_replace('<!--', '&lt;!--', $post_title);
+            $post_title = str_replace('-->', '--&gt;', $post_title);
+
             // update group settings after post update
             $data = array(
                 'post_id' => $_POST['post_id'],
@@ -1121,6 +1127,8 @@ class PCQF_Admin
 
     private static function pcqf_get_group_row($post_title, $current_settings)
     {
+        $post_title = str_replace('<!--', '&lt;!--', $post_title);
+        $post_title = str_replace('-->', '--&gt;', $post_title);
         $table_cells = '<tr class="set_row group_row">';
         $table_cells .= '<td><strong>' . stripslashes($post_title) . '</strong><div class="row_actions>';
         $table_cells .= '<span class="edit_group><form class="update_group_form" method="post" action="">';
@@ -1143,6 +1151,8 @@ class PCQF_Admin
 
     private static function pcqf_get_set_row($post_title, $current_settings)
     {
+        $post_title = str_replace('<!--', '&lt;!--', $post_title);
+        $post_title = str_replace('-->', '--&gt;', $post_title);
         $table_cells = '<tr class="set_row keyword_row">';
         $table_cells .= '<td><strong>' . stripslashes($post_title) . '</strong><div class="row_actions">';
         $table_cells .= '<span class="edit_keyword"><form class="update_form" method="post" action="">';
@@ -1167,6 +1177,8 @@ class PCQF_Admin
 
     private static function pcqf_get_not_set_row($post_title, $post_id, $term_info)
     {
+        $post_title = str_replace('<!--', '&lt;!--', $post_title);
+        $post_title = str_replace('-->', '--&gt;', $post_title);
         $table_cells = '<tr class="not_set_row keyword_row">';
         $table_cells .= '<td><strong>' . stripslashes($post_title) . '</strong><div class="row_actions>';
         $table_cells .= '<span class="edit_keyword><form class="update_form" method="post" action="">';
