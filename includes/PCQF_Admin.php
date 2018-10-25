@@ -62,8 +62,7 @@ class PCQF_Admin
     add_submenu_page('pcomm-quick-find', 'Keyword Manager', 'Keyword Manager', 'manage_options', 'keyword-manager', 'PCQF_Admin::pcqf_keyword_page');
     add_submenu_page('pcomm-quick-find', 'Keyword Taxonomy Manager', 'Keyword & Taxonomy Manager', 'manage_options', 'keyword-tax-manager', 'PCQF_Admin::pcqf_keyword_tax_page');
     add_submenu_page('pcomm-quick-find', 'Group Manager', 'Group Manager', 'manage_options', 'group-manager', 'PCQF_Admin::pcqf_group_page');
-    add_submenu_page( 'pcomm-quick-find', "Post Type Settings", "Post Type Settings", 'manage_options', "post-type-settings", function() use($searchModel) {
-      include(realpath(__DIR__).'../type-settings.php');
+    add_submenu_page( 'pcomm-quick-find', "Post Type Settings", "Post Type Settings", 'manage_options', "post-type-settings", 'PCQF_Admin::pcqf_type_settings_page');
     });
 
 
