@@ -132,7 +132,26 @@ class PCQF_Admin
     
     <?php
   }
-
+  public static function pcqf_type_settings_page()
+  {
+    ?>
+    
+      <div class="wrap">
+        <h2>Post Type Settings</h2>
+        <form action="options.php" method="post">
+          <?php //settings_fields('pcqf_options');?>
+          <?php do_settings_sections(__FILE__.'_post_type');?>
+          <!-- <p class="submit"><input name="Submit" class="button-primary" type="submit" value="Get Posts" /></p> -->
+          
+        </form>
+        
+        
+        <!-- <div id="pcqf_group_posts"></div> -->
+        
+      </div>
+    
+    <?php
+  }
   // Options page render form
   public static function pcqf_group_page()
   {
@@ -158,6 +177,9 @@ class PCQF_Admin
   // Define settings
   public static function pcqf_admin_init()
   {
+    // post type settings
+    add_settings_section('pcqf_post_type_section', 'Post Type Manager', 'PCQF_Admin::pcqf_post_type_description_text', __FILE__.'_post_type');
+    add_settings_field('pcqf_groups', 'Select Group:', 'PCQF_Admin::pcqf_group_select', __FILE__.'_group', 'pcqf_group_section');
     // group manager settings
     add_settings_section('pcqf_group_section', 'Group Sort Oder and Layout Manager', 'PCQF_Admin::pcqf_group_description_text', __FILE__.'_group');
     add_settings_field('pcqf_groups', 'Select Group:', 'PCQF_Admin::pcqf_group_select', __FILE__.'_group', 'pcqf_group_section');
