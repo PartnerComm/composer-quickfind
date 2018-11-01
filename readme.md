@@ -11,13 +11,35 @@ The plugin also supports a config option for adding post types to the main QF qu
 
 ~~This was originally copied over from the Roche project. There were issues with the site redirecting to a /site-preferences page which didn't exist for the MSK project it was copied into. So... it's currently a mix between Roche and MSK. At some point need a way to pull out the vendor specific differences, or make those differences configurable.~~
 
+## Data Structures
+
+### `get_qf_order_data`
+<pre>
+Array
+(
+    [0] => stdClass Object
+        (
+            [qfid] => 
+            [post_id] => 
+            [term_id] => 
+            [term_name] => content
+            [term_slug] => content
+            [sort_order] => 
+            [group_slug] => 
+            [group_order] => 
+            [layout] => hero
+            [group_layout] => 
+        )
+    ...
+</pre>
+
 # Release Notes
-- 1.0.9
+- 1.0.9 (2018-10-24)
     - update plugin meta
     - fix post title after update
-- 1.0.8
+- 1.0.8 (2018-10-24)
     - version bump
-- 1.0.7
+- 1.0.7 (2018-10-24)
     - Quickfind manager should display titles when wrapped in comments 
 - 1.0.6 (2018-10-22)
     - Bug Fix: resolve invalid foreach loops
