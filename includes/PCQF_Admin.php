@@ -39,14 +39,14 @@ class PCQF_Admin
      *******************************************************************************/
     public static function pcqf_admin_enqueue_styles()
     {
-        wp_enqueue_style('pcqf-style-admin', PCQFURL . '/css/pcqf-admin.css', array(), '');
+        wp_enqueue_style('pcqf-style-admin', plugins_url('../css/pcqf-admin.css', __FILE__), array(), '');
         wp_enqueue_style('jquery-ui-custom', plugins_url('../css/jquery-ui.min.css', __FILE__), array(), '');
 
     }
 
     public static function pcqf_admin_enqueue_scripts()
     {
-        wp_enqueue_script('pcqf-js-admin', PCQFURL . '/js/pcqf-admin.js', array('jquery', 'jquery-ui-datepicker'));
+        wp_enqueue_script('pcqf-js-admin', plugins_url('../js/pcqf-admin.js', __FILE__), array('jquery', 'jquery-ui-datepicker'));
         wp_localize_script('pcqf-js-admin', 'pcqf_ajax_admin', array('ajaxurl' => admin_url('admin-ajax.php')));
     }
 
